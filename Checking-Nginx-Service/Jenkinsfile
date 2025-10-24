@@ -1,0 +1,27 @@
+pipeline {
+    agent any
+
+    stages {
+        stage('Check and Start Nginx') {
+            steps {
+                sh '''
+                    if systemctl is-active --quiet nginx; then
+                        echo "Nginx is already running."
+                    else
+                        echo "Nginx is not running. Starting nginx..."
+                        sudo systemctl start nginx
+
+                        if systemctl is-active --quiet nginx; then
+                            echo "Nginx started successfully."
+                        else
+                            echo "Failed to start nginx!"
+                            exit 1
+                        fi
+                    fi
+                '''
+            }
+        }
+    }
+}
+
+
