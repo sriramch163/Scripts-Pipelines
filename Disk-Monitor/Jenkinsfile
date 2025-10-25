@@ -1,0 +1,23 @@
+pipeline{
+    agent any
+
+    stages {
+        stage('Check the Disk Usage') { 
+            steps {
+                script {
+                    sh 'chmod +x disk-monitor.sh'
+                    sh './disk-monitor.sh'
+                }
+            } 
+        }
+    }
+
+
+    post {
+        failure {
+            echo "Disk Usage exceeded threshold" 
+        }
+        success {
+            echo "Disk usage within limits" 
+    }
+}
