@@ -1,4 +1,4 @@
-pipeline{
+pipeline {
     agent any
 
     stages {
@@ -19,5 +19,5 @@ pipeline{
         }
         success {
             echo "Disk usage within limits" 
-    }
+        }
 }
